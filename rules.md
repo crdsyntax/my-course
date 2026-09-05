@@ -309,8 +309,9 @@ donde no se indique, aplican a todos por igual.
 | D8 | MEDIA | Errores de red como `Error` genérico con texto crudo del servidor sin tipar ni mapear | `services/invoice.api.ts:22-24` | §5.3 |
 | D9 | BAJA | `npm run build` llama a `tsc -b` sin referencia project → comprueba correcto estado de `tsconfig.tsbuildinfo`; revisar si `tsc -b` requiere `tsconfig.node.json` para Vite 5 | `tsconfig.json`, `vite.config.ts` | DoD |
 | D10 | BAJA | Doble definición de enums duplicados en schemas (`currencyEnum`, `taxCategoryEnum`) replicados entre features | `invoicing/types/invoice.schema.ts:3-4`, `products/types/product.schema.ts:3-4` | §3.2 DRY |
+| D11 | CRÍTICA | `InvoiceHeaderForm` no renderiza `issuer.*`, `customer.address` ni `customer.email`, campos que `invoiceHeaderSchema` exige (min 1 / email válido) → la validación Zod impide emitir cualquier factura | `InvoiceHeaderForm.tsx:20-88` (solo correlativo/divisa/fechas/cliente parcial) vs `invoice.schema.ts:7-21` | §7 bordes + §5.1 |
 
-**Tratamiento de esta tabla:** ningún agente debe *agravar* D1–D10; al tocar una zona afectada se
+**Tratamiento de esta tabla:** ningún agente debe *agravar* D1–D11; al tocar una zona afectada se
 propone el cierre de la deuda como tarea separada (Fase 3: ámbito estricto). El Tech Leader actualiza
 la tabla y el estado de cada ítem en `context.md`.
 
