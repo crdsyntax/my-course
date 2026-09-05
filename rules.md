@@ -261,11 +261,18 @@ donde no se indique, aplican a todos por igual.
 
 ## 9. Git, Commits y CI/CD
 
-### 9.1 Estrategia de ramas
+### 9.1 Estrategia de ramas y política de commit+push automático
 - Modelo **Trunk-based simplificado**: `main` siempre desplegable. Ramas `feat/<slug>` con vida corta
-  (< 2 días de trabajo) y PR obligatoria. Prohibido commitear directo a `main` excepto hotfix
-  documentado aprobado por TL+DevOps.
-- Los agentes solo crean ramas/push/PR cuando **el usuario lo solicita explícitamente**.
+  (< 2 días de trabajo) y PR obligatoria para features complejas; en el flujo actual de un solo
+  desarrollador las funcionalidades validadas aterrizan en `main` vía integración automática.
+- **OBLIGATORIO — integración automática**: el agente Git & DevOps **commitea y hace push con cada
+  funcionalidad creada y validada** (DoD aprobado), **sin esperar petición explícita del usuario**.
+  Secuencia: higiene del diff → commits convencionales atómicos → push al branch activo → reporte.
+  Esta regla es obligatoria en toda la cadena de orquestación (ver `AGENTS.md` §3).
+- El push automático se ejecuta SOLO si el cambio cumple el DoD (Anexo B) y no contiene secretos ni
+  artefactos; si el push exige `--force`/rebase/resolución manual de conflictos, el agente se detiene
+  y escala al usuario. PROHIBIDO forzar el remoto o reescribir historia compartida.
+- Los agentes solo **crean ramas nuevas o abren PR** cuando el usuario lo solicita explícitamente.
 - PROHIBIDO push de secretos, artefactos de build (`dist`), `node_modules`, `*.tsbuildinfo`
   (ya en `.gitignore`; mantenerlo).
 

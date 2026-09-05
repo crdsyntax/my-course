@@ -41,6 +41,10 @@ Definido en `rules.md` §2. Resumen operativo:
 
 ## 3. Reglas de encadenamiento y escalado
 
+- **Integración automática (OBLIGATORIA)**: el agente Git & DevOps **commitea y hace push con cada
+  funcionalidad creada y validada**, sin esperar petición explícita del usuario (regla normativa:
+  `rules.md` §9.1). El push va al branch activo y solo se detiene si exige `--force`/rebase manual.
+  La **creación de ramas nuevas y de PR** sigue requiriendo petición explícita del usuario.
 - **Un solo dueño por pieza de estado**: si dos agentes tocan el mismo estado, el Tech Leader asigna el
   dueño antes de empezar (hoy: bug D1 en `items` del borrador).
 - **Handoff con contexto**: quien entrega incluye siempre el *formato de salida* de su rol; quien recibe
