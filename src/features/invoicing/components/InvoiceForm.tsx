@@ -31,7 +31,9 @@ export function InvoiceForm() {
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-5xl space-y-6 p-4">
       <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-slate-900">Facturación Digital</h1>
+        <h1 className="animate-title bg-gradient-to-r from-indigo-600 via-violet-600 to-fuchsia-600 bg-[length:200%_100%] bg-clip-text text-3xl font-extrabold tracking-tight text-transparent">
+          Facturación Digital
+        </h1>
         <InvoiceStatusBadge status="DRAFT" />
       </header>
 
